@@ -1,0 +1,1626 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0.1 (Python 3.7.0 on win32)" generated="20220613 19:04:50.389" rpa="false" schemaversion="3">
+<suite id="s1" name="Tests" source="C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Tests">
+<suite id="s1-s1" name="TC 01 POST Request" source="C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Tests\TC_01_POST_Request.robot">
+<test id="s1-s1-t1" name="TC_01_POST_Request" line="60">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>Add_Data</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20220613 19:04:50.621" level="INFO">Creating Session using : alias=Add_Data, url=https://estateably-todo.herokuapp.com/, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20220613 19:04:50.621" endtime="20220613 19:04:50.622"/>
+</kw>
+<kw name="POST create">
+<for flavor="IN">
+<var>${v1}</var>
+<value>@{CATEGORIES}</value>
+<iter>
+<var name="${v1}">Salary</var>
+<for flavor="IN">
+<var>${v2}</var>
+<value>@{TYPES}</value>
+<iter>
+<var name="${v2}">Expense</var>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${body}</var>
+<arg>name=${name}</arg>
+<arg>category=${v1}</arg>
+<arg>type=${v2}</arg>
+<arg>value=${value}</arg>
+<arg>date=${date}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220613 19:04:50.624" level="INFO">${body} = {'name': 'Burger Queen Order', 'category': 'Salary', 'type': 'Expense', 'value': '25.9', 'date': '2022-06-11T12:46:02.937Z'}</msg>
+<status status="PASS" starttime="20220613 19:04:50.623" endtime="20220613 19:04:50.624"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>Add_Data</arg>
+<arg>${relative_transactions_url}</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20220613 19:04:51.424" level="INFO">POST Request : url=https://estateably-todo.herokuapp.com/transactions 
+ path_url=/transactions 
+ headers={'User-Agent': 'python-requests/2.28.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '124', 'Content-Type': 'application/json'} 
+ body=b'{"name": "Burger Queen Order", "category": "Salary", "type": "Expense", "value": "25.9", "date": "2022-06-11T12:46:02.937Z"}' 
+ </msg>
+<msg timestamp="20220613 19:04:51.425" level="INFO">POST Response : url=https://estateably-todo.herokuapp.com/transactions 
+ status=201, reason=Created 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '159', 'Etag': 'W/"9f-b5JfcdUDdQBPInP4K0YQKNQHG8g"', 'Date': 'Mon, 13 Jun 2022 22:04:52 GMT', 'Via': '1.1 vegur'} 
+ body={"name":"Burger Queen Order","type":"Expense","category":"Salary","value":"25.9","date":"2022-06-11T12:46:02.937Z","id":"0ebf5899-6bd4-451a-bf8a-67ed233da280"} 
+ </msg>
+<msg timestamp="20220613 19:04:51.425" level="INFO">c:\users\reginaldo\pycharmprojects\qachallengeestateably\venv\lib\site-packages\urllib3\connectionpool.py:1050: InsecureRequestWarning: Unverified HTTPS request is being made to host 'estateably-todo.herokuapp.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20220613 19:04:51.426" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20220613 19:04:50.624" endtime="20220613 19:04:51.426"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${status_code}</var>
+<arg>${response.status_code}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220613 19:04:51.430" level="INFO">${status_code} = 201</msg>
+<status status="PASS" starttime="20220613 19:04:51.427" endtime="20220613 19:04:51.430"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${status_code}</arg>
+<arg>201</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220613 19:04:51.431" endtime="20220613 19:04:51.432"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${name}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:51.432" endtime="20220613 19:04:51.437"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${v1}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:51.437" endtime="20220613 19:04:51.440"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${v2}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:51.441" endtime="20220613 19:04:51.444"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${value}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:51.444" endtime="20220613 19:04:51.447"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${date}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:51.448" endtime="20220613 19:04:51.451"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:51.452" endtime="20220613 19:04:51.455"/>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<var>${id}</var>
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<msg timestamp="20220613 19:04:51.458" level="INFO">${id} = 0ebf5899-6bd4-451a-bf8a-67ed233da280</msg>
+<status status="PASS" starttime="20220613 19:04:51.455" endtime="20220613 19:04:51.458"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${IDS}</arg>
+<arg>${id}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20220613 19:04:51.459" endtime="20220613 19:04:51.460"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:50.623" endtime="20220613 19:04:51.460"/>
+</iter>
+<iter>
+<var name="${v2}">Income</var>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${body}</var>
+<arg>name=${name}</arg>
+<arg>category=${v1}</arg>
+<arg>type=${v2}</arg>
+<arg>value=${value}</arg>
+<arg>date=${date}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220613 19:04:51.462" level="INFO">${body} = {'name': 'Burger Queen Order', 'category': 'Salary', 'type': 'Income', 'value': '25.9', 'date': '2022-06-11T12:46:02.937Z'}</msg>
+<status status="PASS" starttime="20220613 19:04:51.461" endtime="20220613 19:04:51.462"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>Add_Data</arg>
+<arg>${relative_transactions_url}</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20220613 19:04:51.644" level="INFO">POST Request : url=https://estateably-todo.herokuapp.com/transactions 
+ path_url=/transactions 
+ headers={'User-Agent': 'python-requests/2.28.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '123', 'Content-Type': 'application/json'} 
+ body=b'{"name": "Burger Queen Order", "category": "Salary", "type": "Income", "value": "25.9", "date": "2022-06-11T12:46:02.937Z"}' 
+ </msg>
+<msg timestamp="20220613 19:04:51.645" level="INFO">POST Response : url=https://estateably-todo.herokuapp.com/transactions 
+ status=201, reason=Created 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '158', 'Etag': 'W/"9e-wV4j2hVnp0PoCh8+QrblINELJf8"', 'Date': 'Mon, 13 Jun 2022 22:04:53 GMT', 'Via': '1.1 vegur'} 
+ body={"name":"Burger Queen Order","type":"Income","category":"Salary","value":"25.9","date":"2022-06-11T12:46:02.937Z","id":"73e8c389-bf77-4cfb-976f-e042b51c138a"} 
+ </msg>
+<msg timestamp="20220613 19:04:51.645" level="INFO">c:\users\reginaldo\pycharmprojects\qachallengeestateably\venv\lib\site-packages\urllib3\connectionpool.py:1050: InsecureRequestWarning: Unverified HTTPS request is being made to host 'estateably-todo.herokuapp.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20220613 19:04:51.646" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20220613 19:04:51.462" endtime="20220613 19:04:51.646"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${status_code}</var>
+<arg>${response.status_code}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220613 19:04:51.650" level="INFO">${status_code} = 201</msg>
+<status status="PASS" starttime="20220613 19:04:51.647" endtime="20220613 19:04:51.650"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${status_code}</arg>
+<arg>201</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220613 19:04:51.651" endtime="20220613 19:04:51.652"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${name}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:51.653" endtime="20220613 19:04:51.656"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${v1}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:51.656" endtime="20220613 19:04:51.660"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${v2}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:51.660" endtime="20220613 19:04:51.663"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${value}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:51.664" endtime="20220613 19:04:51.667"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${date}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:51.667" endtime="20220613 19:04:51.670"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:51.671" endtime="20220613 19:04:51.673"/>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<var>${id}</var>
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<msg timestamp="20220613 19:04:51.675" level="INFO">${id} = 73e8c389-bf77-4cfb-976f-e042b51c138a</msg>
+<status status="PASS" starttime="20220613 19:04:51.673" endtime="20220613 19:04:51.675"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${IDS}</arg>
+<arg>${id}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20220613 19:04:51.675" endtime="20220613 19:04:51.675"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:51.460" endtime="20220613 19:04:51.676"/>
+</iter>
+<status status="PASS" starttime="20220613 19:04:50.623" endtime="20220613 19:04:51.676"/>
+</for>
+<status status="PASS" starttime="20220613 19:04:50.622" endtime="20220613 19:04:51.676"/>
+</iter>
+<iter>
+<var name="${v1}">Food</var>
+<for flavor="IN">
+<var>${v2}</var>
+<value>@{TYPES}</value>
+<iter>
+<var name="${v2}">Expense</var>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${body}</var>
+<arg>name=${name}</arg>
+<arg>category=${v1}</arg>
+<arg>type=${v2}</arg>
+<arg>value=${value}</arg>
+<arg>date=${date}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220613 19:04:51.678" level="INFO">${body} = {'name': 'Burger Queen Order', 'category': 'Food', 'type': 'Expense', 'value': '25.9', 'date': '2022-06-11T12:46:02.937Z'}</msg>
+<status status="PASS" starttime="20220613 19:04:51.677" endtime="20220613 19:04:51.678"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>Add_Data</arg>
+<arg>${relative_transactions_url}</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20220613 19:04:51.860" level="INFO">POST Request : url=https://estateably-todo.herokuapp.com/transactions 
+ path_url=/transactions 
+ headers={'User-Agent': 'python-requests/2.28.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '122', 'Content-Type': 'application/json'} 
+ body=b'{"name": "Burger Queen Order", "category": "Food", "type": "Expense", "value": "25.9", "date": "2022-06-11T12:46:02.937Z"}' 
+ </msg>
+<msg timestamp="20220613 19:04:51.860" level="INFO">POST Response : url=https://estateably-todo.herokuapp.com/transactions 
+ status=201, reason=Created 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '157', 'Etag': 'W/"9d-VFuu3P8T8w+H3NB8fiUbfNZxeOc"', 'Date': 'Mon, 13 Jun 2022 22:04:53 GMT', 'Via': '1.1 vegur'} 
+ body={"name":"Burger Queen Order","type":"Expense","category":"Food","value":"25.9","date":"2022-06-11T12:46:02.937Z","id":"644bbdc4-1f1f-4418-b676-047f566f7290"} 
+ </msg>
+<msg timestamp="20220613 19:04:51.860" level="INFO">c:\users\reginaldo\pycharmprojects\qachallengeestateably\venv\lib\site-packages\urllib3\connectionpool.py:1050: InsecureRequestWarning: Unverified HTTPS request is being made to host 'estateably-todo.herokuapp.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20220613 19:04:51.861" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20220613 19:04:51.678" endtime="20220613 19:04:51.862"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${status_code}</var>
+<arg>${response.status_code}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220613 19:04:51.865" level="INFO">${status_code} = 201</msg>
+<status status="PASS" starttime="20220613 19:04:51.862" endtime="20220613 19:04:51.865"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${status_code}</arg>
+<arg>201</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220613 19:04:51.866" endtime="20220613 19:04:51.867"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${name}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:51.867" endtime="20220613 19:04:51.870"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${v1}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:51.871" endtime="20220613 19:04:51.874"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${v2}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:51.874" endtime="20220613 19:04:51.878"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${value}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:51.878" endtime="20220613 19:04:51.881"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${date}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:51.882" endtime="20220613 19:04:51.885"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:51.886" endtime="20220613 19:04:51.888"/>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<var>${id}</var>
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<msg timestamp="20220613 19:04:51.892" level="INFO">${id} = 644bbdc4-1f1f-4418-b676-047f566f7290</msg>
+<status status="PASS" starttime="20220613 19:04:51.889" endtime="20220613 19:04:51.892"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${IDS}</arg>
+<arg>${id}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20220613 19:04:51.892" endtime="20220613 19:04:51.893"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:51.676" endtime="20220613 19:04:51.894"/>
+</iter>
+<iter>
+<var name="${v2}">Income</var>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${body}</var>
+<arg>name=${name}</arg>
+<arg>category=${v1}</arg>
+<arg>type=${v2}</arg>
+<arg>value=${value}</arg>
+<arg>date=${date}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220613 19:04:51.897" level="INFO">${body} = {'name': 'Burger Queen Order', 'category': 'Food', 'type': 'Income', 'value': '25.9', 'date': '2022-06-11T12:46:02.937Z'}</msg>
+<status status="PASS" starttime="20220613 19:04:51.894" endtime="20220613 19:04:51.897"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>Add_Data</arg>
+<arg>${relative_transactions_url}</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20220613 19:04:52.078" level="INFO">POST Request : url=https://estateably-todo.herokuapp.com/transactions 
+ path_url=/transactions 
+ headers={'User-Agent': 'python-requests/2.28.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '121', 'Content-Type': 'application/json'} 
+ body=b'{"name": "Burger Queen Order", "category": "Food", "type": "Income", "value": "25.9", "date": "2022-06-11T12:46:02.937Z"}' 
+ </msg>
+<msg timestamp="20220613 19:04:52.078" level="INFO">POST Response : url=https://estateably-todo.herokuapp.com/transactions 
+ status=201, reason=Created 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '156', 'Etag': 'W/"9c-omjMeOHgmPvrWCFAFpGGhmUmF98"', 'Date': 'Mon, 13 Jun 2022 22:04:53 GMT', 'Via': '1.1 vegur'} 
+ body={"name":"Burger Queen Order","type":"Income","category":"Food","value":"25.9","date":"2022-06-11T12:46:02.937Z","id":"47c58fba-dfed-4e20-a181-3bba1fb297f5"} 
+ </msg>
+<msg timestamp="20220613 19:04:52.078" level="INFO">c:\users\reginaldo\pycharmprojects\qachallengeestateably\venv\lib\site-packages\urllib3\connectionpool.py:1050: InsecureRequestWarning: Unverified HTTPS request is being made to host 'estateably-todo.herokuapp.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20220613 19:04:52.079" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20220613 19:04:51.898" endtime="20220613 19:04:52.080"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${status_code}</var>
+<arg>${response.status_code}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220613 19:04:52.083" level="INFO">${status_code} = 201</msg>
+<status status="PASS" starttime="20220613 19:04:52.080" endtime="20220613 19:04:52.083"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${status_code}</arg>
+<arg>201</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220613 19:04:52.084" endtime="20220613 19:04:52.085"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${name}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.085" endtime="20220613 19:04:52.088"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${v1}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.089" endtime="20220613 19:04:52.092"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${v2}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.092" endtime="20220613 19:04:52.096"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${value}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.096" endtime="20220613 19:04:52.099"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${date}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.099" endtime="20220613 19:04:52.103"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.103" endtime="20220613 19:04:52.106"/>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<var>${id}</var>
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<msg timestamp="20220613 19:04:52.109" level="INFO">${id} = 47c58fba-dfed-4e20-a181-3bba1fb297f5</msg>
+<status status="PASS" starttime="20220613 19:04:52.106" endtime="20220613 19:04:52.109"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${IDS}</arg>
+<arg>${id}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.110" endtime="20220613 19:04:52.111"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:51.894" endtime="20220613 19:04:52.111"/>
+</iter>
+<status status="PASS" starttime="20220613 19:04:51.676" endtime="20220613 19:04:52.111"/>
+</for>
+<status status="PASS" starttime="20220613 19:04:51.676" endtime="20220613 19:04:52.111"/>
+</iter>
+<iter>
+<var name="${v1}">Transport</var>
+<for flavor="IN">
+<var>${v2}</var>
+<value>@{TYPES}</value>
+<iter>
+<var name="${v2}">Expense</var>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${body}</var>
+<arg>name=${name}</arg>
+<arg>category=${v1}</arg>
+<arg>type=${v2}</arg>
+<arg>value=${value}</arg>
+<arg>date=${date}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220613 19:04:52.115" level="INFO">${body} = {'name': 'Burger Queen Order', 'category': 'Transport', 'type': 'Expense', 'value': '25.9', 'date': '2022-06-11T12:46:02.937Z'}</msg>
+<status status="PASS" starttime="20220613 19:04:52.113" endtime="20220613 19:04:52.115"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>Add_Data</arg>
+<arg>${relative_transactions_url}</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20220613 19:04:52.298" level="INFO">POST Request : url=https://estateably-todo.herokuapp.com/transactions 
+ path_url=/transactions 
+ headers={'User-Agent': 'python-requests/2.28.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '127', 'Content-Type': 'application/json'} 
+ body=b'{"name": "Burger Queen Order", "category": "Transport", "type": "Expense", "value": "25.9", "date": "2022-06-11T12:46:02.937Z"}' 
+ </msg>
+<msg timestamp="20220613 19:04:52.298" level="INFO">POST Response : url=https://estateably-todo.herokuapp.com/transactions 
+ status=201, reason=Created 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '162', 'Etag': 'W/"a2-zCu6pe3z59CdVa6PcH4/MtPzIxQ"', 'Date': 'Mon, 13 Jun 2022 22:04:53 GMT', 'Via': '1.1 vegur'} 
+ body={"name":"Burger Queen Order","type":"Expense","category":"Transport","value":"25.9","date":"2022-06-11T12:46:02.937Z","id":"8896c6be-e2f1-43da-8cfd-5f2767090f35"} 
+ </msg>
+<msg timestamp="20220613 19:04:52.299" level="INFO">c:\users\reginaldo\pycharmprojects\qachallengeestateably\venv\lib\site-packages\urllib3\connectionpool.py:1050: InsecureRequestWarning: Unverified HTTPS request is being made to host 'estateably-todo.herokuapp.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20220613 19:04:52.300" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20220613 19:04:52.116" endtime="20220613 19:04:52.300"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${status_code}</var>
+<arg>${response.status_code}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220613 19:04:52.304" level="INFO">${status_code} = 201</msg>
+<status status="PASS" starttime="20220613 19:04:52.300" endtime="20220613 19:04:52.304"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${status_code}</arg>
+<arg>201</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220613 19:04:52.304" endtime="20220613 19:04:52.305"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${name}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.306" endtime="20220613 19:04:52.309"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${v1}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.309" endtime="20220613 19:04:52.312"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${v2}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.313" endtime="20220613 19:04:52.316"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${value}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.316" endtime="20220613 19:04:52.319"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${date}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.320" endtime="20220613 19:04:52.323"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.323" endtime="20220613 19:04:52.326"/>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<var>${id}</var>
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<msg timestamp="20220613 19:04:52.330" level="INFO">${id} = 8896c6be-e2f1-43da-8cfd-5f2767090f35</msg>
+<status status="PASS" starttime="20220613 19:04:52.327" endtime="20220613 19:04:52.330"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${IDS}</arg>
+<arg>${id}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.330" endtime="20220613 19:04:52.331"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:52.112" endtime="20220613 19:04:52.331"/>
+</iter>
+<iter>
+<var name="${v2}">Income</var>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${body}</var>
+<arg>name=${name}</arg>
+<arg>category=${v1}</arg>
+<arg>type=${v2}</arg>
+<arg>value=${value}</arg>
+<arg>date=${date}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220613 19:04:52.332" level="INFO">${body} = {'name': 'Burger Queen Order', 'category': 'Transport', 'type': 'Income', 'value': '25.9', 'date': '2022-06-11T12:46:02.937Z'}</msg>
+<status status="PASS" starttime="20220613 19:04:52.331" endtime="20220613 19:04:52.332"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>Add_Data</arg>
+<arg>${relative_transactions_url}</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20220613 19:04:52.515" level="INFO">POST Request : url=https://estateably-todo.herokuapp.com/transactions 
+ path_url=/transactions 
+ headers={'User-Agent': 'python-requests/2.28.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '126', 'Content-Type': 'application/json'} 
+ body=b'{"name": "Burger Queen Order", "category": "Transport", "type": "Income", "value": "25.9", "date": "2022-06-11T12:46:02.937Z"}' 
+ </msg>
+<msg timestamp="20220613 19:04:52.516" level="INFO">POST Response : url=https://estateably-todo.herokuapp.com/transactions 
+ status=201, reason=Created 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '161', 'Etag': 'W/"a1-QvcCFmhCw4B2jag9xiZKox1DtJw"', 'Date': 'Mon, 13 Jun 2022 22:04:53 GMT', 'Via': '1.1 vegur'} 
+ body={"name":"Burger Queen Order","type":"Income","category":"Transport","value":"25.9","date":"2022-06-11T12:46:02.937Z","id":"1cd47e13-00b8-430f-802c-71e510551af7"} 
+ </msg>
+<msg timestamp="20220613 19:04:52.516" level="INFO">c:\users\reginaldo\pycharmprojects\qachallengeestateably\venv\lib\site-packages\urllib3\connectionpool.py:1050: InsecureRequestWarning: Unverified HTTPS request is being made to host 'estateably-todo.herokuapp.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20220613 19:04:52.518" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20220613 19:04:52.332" endtime="20220613 19:04:52.518"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${status_code}</var>
+<arg>${response.status_code}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220613 19:04:52.522" level="INFO">${status_code} = 201</msg>
+<status status="PASS" starttime="20220613 19:04:52.518" endtime="20220613 19:04:52.522"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${status_code}</arg>
+<arg>201</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220613 19:04:52.522" endtime="20220613 19:04:52.523"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${name}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.524" endtime="20220613 19:04:52.527"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${v1}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.527" endtime="20220613 19:04:52.530"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${v2}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.531" endtime="20220613 19:04:52.534"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${value}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.535" endtime="20220613 19:04:52.538"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${date}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.538" endtime="20220613 19:04:52.541"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.541" endtime="20220613 19:04:52.543"/>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<var>${id}</var>
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<msg timestamp="20220613 19:04:52.544" level="INFO">${id} = 1cd47e13-00b8-430f-802c-71e510551af7</msg>
+<status status="PASS" starttime="20220613 19:04:52.543" endtime="20220613 19:04:52.545"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${IDS}</arg>
+<arg>${id}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.545" endtime="20220613 19:04:52.545"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:52.331" endtime="20220613 19:04:52.545"/>
+</iter>
+<status status="PASS" starttime="20220613 19:04:52.112" endtime="20220613 19:04:52.545"/>
+</for>
+<status status="PASS" starttime="20220613 19:04:52.112" endtime="20220613 19:04:52.545"/>
+</iter>
+<iter>
+<var name="${v1}">House</var>
+<for flavor="IN">
+<var>${v2}</var>
+<value>@{TYPES}</value>
+<iter>
+<var name="${v2}">Expense</var>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${body}</var>
+<arg>name=${name}</arg>
+<arg>category=${v1}</arg>
+<arg>type=${v2}</arg>
+<arg>value=${value}</arg>
+<arg>date=${date}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220613 19:04:52.547" level="INFO">${body} = {'name': 'Burger Queen Order', 'category': 'House', 'type': 'Expense', 'value': '25.9', 'date': '2022-06-11T12:46:02.937Z'}</msg>
+<status status="PASS" starttime="20220613 19:04:52.546" endtime="20220613 19:04:52.548"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>Add_Data</arg>
+<arg>${relative_transactions_url}</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20220613 19:04:52.729" level="INFO">POST Request : url=https://estateably-todo.herokuapp.com/transactions 
+ path_url=/transactions 
+ headers={'User-Agent': 'python-requests/2.28.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '123', 'Content-Type': 'application/json'} 
+ body=b'{"name": "Burger Queen Order", "category": "House", "type": "Expense", "value": "25.9", "date": "2022-06-11T12:46:02.937Z"}' 
+ </msg>
+<msg timestamp="20220613 19:04:52.730" level="INFO">POST Response : url=https://estateably-todo.herokuapp.com/transactions 
+ status=201, reason=Created 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '158', 'Etag': 'W/"9e-ACaT6GjngXEhutnBr/cAiLaJDKE"', 'Date': 'Mon, 13 Jun 2022 22:04:54 GMT', 'Via': '1.1 vegur'} 
+ body={"name":"Burger Queen Order","type":"Expense","category":"House","value":"25.9","date":"2022-06-11T12:46:02.937Z","id":"4dc8ce2b-0fb2-4bda-855a-397dc62a2aef"} 
+ </msg>
+<msg timestamp="20220613 19:04:52.730" level="INFO">c:\users\reginaldo\pycharmprojects\qachallengeestateably\venv\lib\site-packages\urllib3\connectionpool.py:1050: InsecureRequestWarning: Unverified HTTPS request is being made to host 'estateably-todo.herokuapp.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20220613 19:04:52.731" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20220613 19:04:52.548" endtime="20220613 19:04:52.731"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${status_code}</var>
+<arg>${response.status_code}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220613 19:04:52.735" level="INFO">${status_code} = 201</msg>
+<status status="PASS" starttime="20220613 19:04:52.732" endtime="20220613 19:04:52.735"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${status_code}</arg>
+<arg>201</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220613 19:04:52.735" endtime="20220613 19:04:52.736"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${name}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.737" endtime="20220613 19:04:52.740"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${v1}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.740" endtime="20220613 19:04:52.744"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${v2}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.744" endtime="20220613 19:04:52.748"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${value}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.748" endtime="20220613 19:04:52.751"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${date}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.751" endtime="20220613 19:04:52.753"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.754" endtime="20220613 19:04:52.755"/>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<var>${id}</var>
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<msg timestamp="20220613 19:04:52.757" level="INFO">${id} = 4dc8ce2b-0fb2-4bda-855a-397dc62a2aef</msg>
+<status status="PASS" starttime="20220613 19:04:52.756" endtime="20220613 19:04:52.758"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${IDS}</arg>
+<arg>${id}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.758" endtime="20220613 19:04:52.758"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:52.546" endtime="20220613 19:04:52.758"/>
+</iter>
+<iter>
+<var name="${v2}">Income</var>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${body}</var>
+<arg>name=${name}</arg>
+<arg>category=${v1}</arg>
+<arg>type=${v2}</arg>
+<arg>value=${value}</arg>
+<arg>date=${date}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220613 19:04:52.760" level="INFO">${body} = {'name': 'Burger Queen Order', 'category': 'House', 'type': 'Income', 'value': '25.9', 'date': '2022-06-11T12:46:02.937Z'}</msg>
+<status status="PASS" starttime="20220613 19:04:52.759" endtime="20220613 19:04:52.760"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>Add_Data</arg>
+<arg>${relative_transactions_url}</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20220613 19:04:52.944" level="INFO">POST Request : url=https://estateably-todo.herokuapp.com/transactions 
+ path_url=/transactions 
+ headers={'User-Agent': 'python-requests/2.28.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '122', 'Content-Type': 'application/json'} 
+ body=b'{"name": "Burger Queen Order", "category": "House", "type": "Income", "value": "25.9", "date": "2022-06-11T12:46:02.937Z"}' 
+ </msg>
+<msg timestamp="20220613 19:04:52.944" level="INFO">POST Response : url=https://estateably-todo.herokuapp.com/transactions 
+ status=201, reason=Created 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '157', 'Etag': 'W/"9d-fcIjrmcaeNCPYb9XIaPvgfGvEtk"', 'Date': 'Mon, 13 Jun 2022 22:04:54 GMT', 'Via': '1.1 vegur'} 
+ body={"name":"Burger Queen Order","type":"Income","category":"House","value":"25.9","date":"2022-06-11T12:46:02.937Z","id":"d28b9462-9a51-40e0-906a-9bf4f3540015"} 
+ </msg>
+<msg timestamp="20220613 19:04:52.945" level="INFO">c:\users\reginaldo\pycharmprojects\qachallengeestateably\venv\lib\site-packages\urllib3\connectionpool.py:1050: InsecureRequestWarning: Unverified HTTPS request is being made to host 'estateably-todo.herokuapp.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20220613 19:04:52.946" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20220613 19:04:52.761" endtime="20220613 19:04:52.946"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${status_code}</var>
+<arg>${response.status_code}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220613 19:04:52.950" level="INFO">${status_code} = 201</msg>
+<status status="PASS" starttime="20220613 19:04:52.946" endtime="20220613 19:04:52.950"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${status_code}</arg>
+<arg>201</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220613 19:04:52.950" endtime="20220613 19:04:52.951"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${name}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.952" endtime="20220613 19:04:52.955"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${v1}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.955" endtime="20220613 19:04:52.958"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${v2}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.959" endtime="20220613 19:04:52.961"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${value}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.962" endtime="20220613 19:04:52.964"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${date}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.964" endtime="20220613 19:04:52.966"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.966" endtime="20220613 19:04:52.969"/>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<var>${id}</var>
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<msg timestamp="20220613 19:04:52.971" level="INFO">${id} = d28b9462-9a51-40e0-906a-9bf4f3540015</msg>
+<status status="PASS" starttime="20220613 19:04:52.969" endtime="20220613 19:04:52.971"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${IDS}</arg>
+<arg>${id}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20220613 19:04:52.971" endtime="20220613 19:04:52.972"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:52.759" endtime="20220613 19:04:52.972"/>
+</iter>
+<status status="PASS" starttime="20220613 19:04:52.546" endtime="20220613 19:04:52.972"/>
+</for>
+<status status="PASS" starttime="20220613 19:04:52.546" endtime="20220613 19:04:52.972"/>
+</iter>
+<iter>
+<var name="${v1}">Other</var>
+<for flavor="IN">
+<var>${v2}</var>
+<value>@{TYPES}</value>
+<iter>
+<var name="${v2}">Expense</var>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${body}</var>
+<arg>name=${name}</arg>
+<arg>category=${v1}</arg>
+<arg>type=${v2}</arg>
+<arg>value=${value}</arg>
+<arg>date=${date}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220613 19:04:52.975" level="INFO">${body} = {'name': 'Burger Queen Order', 'category': 'Other', 'type': 'Expense', 'value': '25.9', 'date': '2022-06-11T12:46:02.937Z'}</msg>
+<status status="PASS" starttime="20220613 19:04:52.973" endtime="20220613 19:04:52.975"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>Add_Data</arg>
+<arg>${relative_transactions_url}</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20220613 19:04:53.156" level="INFO">POST Request : url=https://estateably-todo.herokuapp.com/transactions 
+ path_url=/transactions 
+ headers={'User-Agent': 'python-requests/2.28.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '123', 'Content-Type': 'application/json'} 
+ body=b'{"name": "Burger Queen Order", "category": "Other", "type": "Expense", "value": "25.9", "date": "2022-06-11T12:46:02.937Z"}' 
+ </msg>
+<msg timestamp="20220613 19:04:53.156" level="INFO">POST Response : url=https://estateably-todo.herokuapp.com/transactions 
+ status=201, reason=Created 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '158', 'Etag': 'W/"9e-67OXXNsbYtSVh3QRPbw3PTbiglg"', 'Date': 'Mon, 13 Jun 2022 22:04:54 GMT', 'Via': '1.1 vegur'} 
+ body={"name":"Burger Queen Order","type":"Expense","category":"Other","value":"25.9","date":"2022-06-11T12:46:02.937Z","id":"52a5c682-dfa8-437c-8180-c35ae934cdb1"} 
+ </msg>
+<msg timestamp="20220613 19:04:53.157" level="INFO">c:\users\reginaldo\pycharmprojects\qachallengeestateably\venv\lib\site-packages\urllib3\connectionpool.py:1050: InsecureRequestWarning: Unverified HTTPS request is being made to host 'estateably-todo.herokuapp.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20220613 19:04:53.157" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20220613 19:04:52.975" endtime="20220613 19:04:53.158"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${status_code}</var>
+<arg>${response.status_code}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220613 19:04:53.161" level="INFO">${status_code} = 201</msg>
+<status status="PASS" starttime="20220613 19:04:53.158" endtime="20220613 19:04:53.161"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${status_code}</arg>
+<arg>201</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220613 19:04:53.162" endtime="20220613 19:04:53.163"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${name}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:53.163" endtime="20220613 19:04:53.167"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${v1}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:53.167" endtime="20220613 19:04:53.170"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${v2}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:53.171" endtime="20220613 19:04:53.173"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${value}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:53.173" endtime="20220613 19:04:53.175"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${date}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:53.175" endtime="20220613 19:04:53.177"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:53.177" endtime="20220613 19:04:53.179"/>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<var>${id}</var>
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<msg timestamp="20220613 19:04:53.181" level="INFO">${id} = 52a5c682-dfa8-437c-8180-c35ae934cdb1</msg>
+<status status="PASS" starttime="20220613 19:04:53.179" endtime="20220613 19:04:53.181"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${IDS}</arg>
+<arg>${id}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20220613 19:04:53.181" endtime="20220613 19:04:53.182"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:52.973" endtime="20220613 19:04:53.182"/>
+</iter>
+<iter>
+<var name="${v2}">Income</var>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${body}</var>
+<arg>name=${name}</arg>
+<arg>category=${v1}</arg>
+<arg>type=${v2}</arg>
+<arg>value=${value}</arg>
+<arg>date=${date}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220613 19:04:53.184" level="INFO">${body} = {'name': 'Burger Queen Order', 'category': 'Other', 'type': 'Income', 'value': '25.9', 'date': '2022-06-11T12:46:02.937Z'}</msg>
+<status status="PASS" starttime="20220613 19:04:53.182" endtime="20220613 19:04:53.184"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>Add_Data</arg>
+<arg>${relative_transactions_url}</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20220613 19:04:53.364" level="INFO">POST Request : url=https://estateably-todo.herokuapp.com/transactions 
+ path_url=/transactions 
+ headers={'User-Agent': 'python-requests/2.28.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '122', 'Content-Type': 'application/json'} 
+ body=b'{"name": "Burger Queen Order", "category": "Other", "type": "Income", "value": "25.9", "date": "2022-06-11T12:46:02.937Z"}' 
+ </msg>
+<msg timestamp="20220613 19:04:53.364" level="INFO">POST Response : url=https://estateably-todo.herokuapp.com/transactions 
+ status=201, reason=Created 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '157', 'Etag': 'W/"9d-iLAxBh/jegk4blxhG+O90BGvldI"', 'Date': 'Mon, 13 Jun 2022 22:04:54 GMT', 'Via': '1.1 vegur'} 
+ body={"name":"Burger Queen Order","type":"Income","category":"Other","value":"25.9","date":"2022-06-11T12:46:02.937Z","id":"044f6b7a-e128-468d-b2fc-3502ae6857c5"} 
+ </msg>
+<msg timestamp="20220613 19:04:53.364" level="INFO">c:\users\reginaldo\pycharmprojects\qachallengeestateably\venv\lib\site-packages\urllib3\connectionpool.py:1050: InsecureRequestWarning: Unverified HTTPS request is being made to host 'estateably-todo.herokuapp.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20220613 19:04:53.365" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20220613 19:04:53.184" endtime="20220613 19:04:53.365"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${status_code}</var>
+<arg>${response.status_code}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220613 19:04:53.366" level="INFO">${status_code} = 201</msg>
+<status status="PASS" starttime="20220613 19:04:53.365" endtime="20220613 19:04:53.366"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${status_code}</arg>
+<arg>201</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220613 19:04:53.366" endtime="20220613 19:04:53.367"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${name}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:53.367" endtime="20220613 19:04:53.368"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${v1}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:53.368" endtime="20220613 19:04:53.370"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${v2}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:53.370" endtime="20220613 19:04:53.371"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${value}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:53.371" endtime="20220613 19:04:53.373"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${date}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:53.373" endtime="20220613 19:04:53.374"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 19:04:53.374" endtime="20220613 19:04:53.375"/>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<var>${id}</var>
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<msg timestamp="20220613 19:04:53.377" level="INFO">${id} = 044f6b7a-e128-468d-b2fc-3502ae6857c5</msg>
+<status status="PASS" starttime="20220613 19:04:53.376" endtime="20220613 19:04:53.377"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${IDS}</arg>
+<arg>${id}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20220613 19:04:53.377" endtime="20220613 19:04:53.377"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:53.182" endtime="20220613 19:04:53.377"/>
+</iter>
+<status status="PASS" starttime="20220613 19:04:52.973" endtime="20220613 19:04:53.378"/>
+</for>
+<status status="PASS" starttime="20220613 19:04:52.972" endtime="20220613 19:04:53.378"/>
+</iter>
+<status status="PASS" starttime="20220613 19:04:50.622" endtime="20220613 19:04:53.378"/>
+</for>
+<status status="PASS" starttime="20220613 19:04:50.622" endtime="20220613 19:04:53.378"/>
+</kw>
+<kw name="Print IDS">
+<for flavor="IN">
+<var>${i}</var>
+<value>@{IDS}</value>
+<iter>
+<var name="${i}">0ebf5899-6bd4-451a-bf8a-67ed233da280</var>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${i}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220613 19:04:53.379" endtime="20220613 19:04:53.380"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:53.379" endtime="20220613 19:04:53.380"/>
+</iter>
+<iter>
+<var name="${i}">73e8c389-bf77-4cfb-976f-e042b51c138a</var>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${i}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220613 19:04:53.380" endtime="20220613 19:04:53.381"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:53.380" endtime="20220613 19:04:53.381"/>
+</iter>
+<iter>
+<var name="${i}">644bbdc4-1f1f-4418-b676-047f566f7290</var>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${i}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220613 19:04:53.381" endtime="20220613 19:04:53.381"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:53.381" endtime="20220613 19:04:53.381"/>
+</iter>
+<iter>
+<var name="${i}">47c58fba-dfed-4e20-a181-3bba1fb297f5</var>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${i}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220613 19:04:53.382" endtime="20220613 19:04:53.382"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:53.381" endtime="20220613 19:04:53.382"/>
+</iter>
+<iter>
+<var name="${i}">8896c6be-e2f1-43da-8cfd-5f2767090f35</var>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${i}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220613 19:04:53.382" endtime="20220613 19:04:53.383"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:53.382" endtime="20220613 19:04:53.383"/>
+</iter>
+<iter>
+<var name="${i}">1cd47e13-00b8-430f-802c-71e510551af7</var>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${i}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220613 19:04:53.383" endtime="20220613 19:04:53.384"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:53.383" endtime="20220613 19:04:53.384"/>
+</iter>
+<iter>
+<var name="${i}">4dc8ce2b-0fb2-4bda-855a-397dc62a2aef</var>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${i}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220613 19:04:53.384" endtime="20220613 19:04:53.384"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:53.384" endtime="20220613 19:04:53.384"/>
+</iter>
+<iter>
+<var name="${i}">d28b9462-9a51-40e0-906a-9bf4f3540015</var>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${i}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220613 19:04:53.385" endtime="20220613 19:04:53.385"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:53.384" endtime="20220613 19:04:53.385"/>
+</iter>
+<iter>
+<var name="${i}">52a5c682-dfa8-437c-8180-c35ae934cdb1</var>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${i}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220613 19:04:53.386" endtime="20220613 19:04:53.386"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:53.386" endtime="20220613 19:04:53.386"/>
+</iter>
+<iter>
+<var name="${i}">044f6b7a-e128-468d-b2fc-3502ae6857c5</var>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${i}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220613 19:04:53.386" endtime="20220613 19:04:53.387"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:53.386" endtime="20220613 19:04:53.387"/>
+</iter>
+<status status="PASS" starttime="20220613 19:04:53.379" endtime="20220613 19:04:53.387"/>
+</for>
+<status status="PASS" starttime="20220613 19:04:53.378" endtime="20220613 19:04:53.387"/>
+</kw>
+<kw name="Save in a File">
+<for flavor="IN">
+<var>${data}</var>
+<value>@{IDS}</value>
+<iter>
+<var name="${data}">0ebf5899-6bd4-451a-bf8a-67ed233da280</var>
+<kw name="Append To File" library="OperatingSystem">
+<arg>${FILE_DIR}</arg>
+<arg>${data}\n</arg>
+<doc>Appends the given content to the specified file.</doc>
+<msg timestamp="20220613 19:04:53.389" level="INFO" html="true">Appended to file '&lt;a href="file://C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\ids.txt"&gt;C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\ids.txt&lt;/a&gt;'.</msg>
+<status status="PASS" starttime="20220613 19:04:53.388" endtime="20220613 19:04:53.389"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:53.388" endtime="20220613 19:04:53.389"/>
+</iter>
+<iter>
+<var name="${data}">73e8c389-bf77-4cfb-976f-e042b51c138a</var>
+<kw name="Append To File" library="OperatingSystem">
+<arg>${FILE_DIR}</arg>
+<arg>${data}\n</arg>
+<doc>Appends the given content to the specified file.</doc>
+<msg timestamp="20220613 19:04:53.391" level="INFO" html="true">Appended to file '&lt;a href="file://C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\ids.txt"&gt;C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\ids.txt&lt;/a&gt;'.</msg>
+<status status="PASS" starttime="20220613 19:04:53.390" endtime="20220613 19:04:53.391"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:53.390" endtime="20220613 19:04:53.391"/>
+</iter>
+<iter>
+<var name="${data}">644bbdc4-1f1f-4418-b676-047f566f7290</var>
+<kw name="Append To File" library="OperatingSystem">
+<arg>${FILE_DIR}</arg>
+<arg>${data}\n</arg>
+<doc>Appends the given content to the specified file.</doc>
+<msg timestamp="20220613 19:04:53.392" level="INFO" html="true">Appended to file '&lt;a href="file://C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\ids.txt"&gt;C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\ids.txt&lt;/a&gt;'.</msg>
+<status status="PASS" starttime="20220613 19:04:53.391" endtime="20220613 19:04:53.392"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:53.391" endtime="20220613 19:04:53.392"/>
+</iter>
+<iter>
+<var name="${data}">47c58fba-dfed-4e20-a181-3bba1fb297f5</var>
+<kw name="Append To File" library="OperatingSystem">
+<arg>${FILE_DIR}</arg>
+<arg>${data}\n</arg>
+<doc>Appends the given content to the specified file.</doc>
+<msg timestamp="20220613 19:04:53.393" level="INFO" html="true">Appended to file '&lt;a href="file://C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\ids.txt"&gt;C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\ids.txt&lt;/a&gt;'.</msg>
+<status status="PASS" starttime="20220613 19:04:53.393" endtime="20220613 19:04:53.394"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:53.392" endtime="20220613 19:04:53.394"/>
+</iter>
+<iter>
+<var name="${data}">8896c6be-e2f1-43da-8cfd-5f2767090f35</var>
+<kw name="Append To File" library="OperatingSystem">
+<arg>${FILE_DIR}</arg>
+<arg>${data}\n</arg>
+<doc>Appends the given content to the specified file.</doc>
+<msg timestamp="20220613 19:04:53.395" level="INFO" html="true">Appended to file '&lt;a href="file://C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\ids.txt"&gt;C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\ids.txt&lt;/a&gt;'.</msg>
+<status status="PASS" starttime="20220613 19:04:53.394" endtime="20220613 19:04:53.395"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:53.394" endtime="20220613 19:04:53.395"/>
+</iter>
+<iter>
+<var name="${data}">1cd47e13-00b8-430f-802c-71e510551af7</var>
+<kw name="Append To File" library="OperatingSystem">
+<arg>${FILE_DIR}</arg>
+<arg>${data}\n</arg>
+<doc>Appends the given content to the specified file.</doc>
+<msg timestamp="20220613 19:04:53.396" level="INFO" html="true">Appended to file '&lt;a href="file://C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\ids.txt"&gt;C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\ids.txt&lt;/a&gt;'.</msg>
+<status status="PASS" starttime="20220613 19:04:53.395" endtime="20220613 19:04:53.396"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:53.395" endtime="20220613 19:04:53.396"/>
+</iter>
+<iter>
+<var name="${data}">4dc8ce2b-0fb2-4bda-855a-397dc62a2aef</var>
+<kw name="Append To File" library="OperatingSystem">
+<arg>${FILE_DIR}</arg>
+<arg>${data}\n</arg>
+<doc>Appends the given content to the specified file.</doc>
+<msg timestamp="20220613 19:04:53.398" level="INFO" html="true">Appended to file '&lt;a href="file://C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\ids.txt"&gt;C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\ids.txt&lt;/a&gt;'.</msg>
+<status status="PASS" starttime="20220613 19:04:53.397" endtime="20220613 19:04:53.398"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:53.397" endtime="20220613 19:04:53.398"/>
+</iter>
+<iter>
+<var name="${data}">d28b9462-9a51-40e0-906a-9bf4f3540015</var>
+<kw name="Append To File" library="OperatingSystem">
+<arg>${FILE_DIR}</arg>
+<arg>${data}\n</arg>
+<doc>Appends the given content to the specified file.</doc>
+<msg timestamp="20220613 19:04:53.399" level="INFO" html="true">Appended to file '&lt;a href="file://C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\ids.txt"&gt;C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\ids.txt&lt;/a&gt;'.</msg>
+<status status="PASS" starttime="20220613 19:04:53.398" endtime="20220613 19:04:53.399"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:53.398" endtime="20220613 19:04:53.399"/>
+</iter>
+<iter>
+<var name="${data}">52a5c682-dfa8-437c-8180-c35ae934cdb1</var>
+<kw name="Append To File" library="OperatingSystem">
+<arg>${FILE_DIR}</arg>
+<arg>${data}\n</arg>
+<doc>Appends the given content to the specified file.</doc>
+<msg timestamp="20220613 19:04:53.400" level="INFO" html="true">Appended to file '&lt;a href="file://C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\ids.txt"&gt;C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\ids.txt&lt;/a&gt;'.</msg>
+<status status="PASS" starttime="20220613 19:04:53.399" endtime="20220613 19:04:53.400"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:53.399" endtime="20220613 19:04:53.401"/>
+</iter>
+<iter>
+<var name="${data}">044f6b7a-e128-468d-b2fc-3502ae6857c5</var>
+<kw name="Append To File" library="OperatingSystem">
+<arg>${FILE_DIR}</arg>
+<arg>${data}\n</arg>
+<doc>Appends the given content to the specified file.</doc>
+<msg timestamp="20220613 19:04:53.402" level="INFO" html="true">Appended to file '&lt;a href="file://C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\ids.txt"&gt;C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\ids.txt&lt;/a&gt;'.</msg>
+<status status="PASS" starttime="20220613 19:04:53.401" endtime="20220613 19:04:53.402"/>
+</kw>
+<status status="PASS" starttime="20220613 19:04:53.401" endtime="20220613 19:04:53.402"/>
+</iter>
+<status status="PASS" starttime="20220613 19:04:53.388" endtime="20220613 19:04:53.402"/>
+</for>
+<status status="PASS" starttime="20220613 19:04:53.387" endtime="20220613 19:04:53.402"/>
+</kw>
+<tag>POST</tag>
+<tag>Regression</tag>
+<status status="PASS" starttime="20220613 19:04:50.620" endtime="20220613 19:04:53.403"/>
+</test>
+<status status="PASS" starttime="20220613 19:04:50.428" endtime="20220613 19:04:53.405"/>
+</suite>
+<suite id="s1-s2" name="TC 02 GET Request" source="C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Tests\TC_02_GET_Request.robot">
+<test id="s1-s2-t1" name="TC_02_GET_Request" line="14">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>Get_Transactions_List</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20220613 19:04:53.416" level="INFO">Creating Session using : alias=Get_Transactions_List, url=https://estateably-todo.herokuapp.com/, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20220613 19:04:53.416" endtime="20220613 19:04:53.417"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>Get_Transactions_List</arg>
+<arg>${relative_transactions_url}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20220613 19:04:54.112" level="INFO">GET Request : url=https://estateably-todo.herokuapp.com/transactions 
+ path_url=/transactions 
+ headers={'User-Agent': 'python-requests/2.28.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20220613 19:04:54.112" level="INFO">GET Response : url=https://estateably-todo.herokuapp.com/transactions 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '1574', 'Etag': 'W/"626-MQhP6SbfSxPQyU4mHGqFXbNVISE"', 'Date': 'Mon, 13 Jun 2022 22:04:55 GMT', 'Via': '1.1 vegur'} 
+ body=[{"id":"0ebf5899-6bd4-451a-bf8a-67ed233da280","name":"Burger Queen Order","category":"Salary","type":"Expense","value":25.9,"date":"2022-06-11T12:46:02.937Z"},{"id":"73e8c389-bf77-4cfb-976f-e042b51c138a","name":"Burger Queen Order","category":"Salary","type":"Income","value":25.9,"date":"2022-06-11T12:46:02.937Z"},{"id":"644bbdc4-1f1f-4418-b676-047f566f7290","name":"Burger Queen Order","category":"Food","type":"Expense","value":25.9,"date":"2022-06-11T12:46:02.937Z"},{"id":"47c58fba-dfed-4e20-a181-3bba1fb297f5","name":"Burger Queen Order","category":"Food","type":"Income","value":25.9,"date":"2022-06-11T12:46:02.937Z"},{"id":"8896c6be-e2f1-43da-8cfd-5f2767090f35","name":"Burger Queen Order","category":"Transport","type":"Expense","value":25.9,"date":"2022-06-11T12:46:02.937Z"},{"id":"1cd47e13-00b8-430f-802c-71e510551af7","name":"Burger Queen Order","category":"Transport","type":"Income","value":25.9,"date":"2022-06-11T12:46:02.937Z"},{"id":"4dc8ce2b-0fb2-4bda-855a-397dc62a2aef","name":"Burger Queen Order","category":"House","type":"Expense","value":25.9,"date":"2022-06-11T12:46:02.937Z"},{"id":"d28b9462-9a51-40e0-906a-9bf4f3540015","name":"Burger Queen Order","category":"House","type":"Income","value":25.9,"date":"2022-06-11T12:46:02.937Z"},{"id":"52a5c682-dfa8-437c-8180-c35ae934cdb1","name":"Burger Queen Order","category":"Other","type":"Expense","value":25.9,"date":"2022-06-11T12:46:02.937Z"},{"id":"044f6b7a-e128-468d-b2fc-3502ae6857c5","name":"Burger Queen Order","category":"Other","type":"Income","value":25.9,"date":"2022-06-11T12:46:02.937Z"}] 
+ </msg>
+<msg timestamp="20220613 19:04:54.112" level="INFO">c:\users\reginaldo\pycharmprojects\qachallengeestateably\venv\lib\site-packages\urllib3\connectionpool.py:1050: InsecureRequestWarning: Unverified HTTPS request is being made to host 'estateably-todo.herokuapp.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20220613 19:04:54.113" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220613 19:04:53.417" endtime="20220613 19:04:54.113"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${status_code}</var>
+<arg>${response.status_code}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220613 19:04:54.114" level="INFO">${status_code} = 200</msg>
+<status status="PASS" starttime="20220613 19:04:54.113" endtime="20220613 19:04:54.114"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${status_code}</arg>
+<arg>200</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220613 19:04:54.115" endtime="20220613 19:04:54.116"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${body}</var>
+<arg>${response.content}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220613 19:04:54.117" level="INFO">${body} = [{"id":"0ebf5899-6bd4-451a-bf8a-67ed233da280","name":"Burger Queen Order","category":"Salary","type":"Expense","value":25.9,"date":"2022-06-11T12:46:02.937Z"},{"id":"73e8c389-bf77-4cfb-976f-e042b51c13...</msg>
+<status status="PASS" starttime="20220613 19:04:54.116" endtime="20220613 19:04:54.117"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${body}</arg>
+<arg>name</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20220613 19:04:54.118" endtime="20220613 19:04:54.118"/>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<var>${content_type}</var>
+<arg>${response.headers}</arg>
+<arg>Content-Type</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<msg timestamp="20220613 19:04:54.120" level="INFO">${content_type} = application/json; charset=utf-8</msg>
+<status status="PASS" starttime="20220613 19:04:54.119" endtime="20220613 19:04:54.120"/>
+</kw>
+<kw name="Should Not Be Equal" library="BuiltIn">
+<arg>${content_type}</arg>
+<arg>application/json</arg>
+<doc>Fails if the given objects are equal.</doc>
+<status status="PASS" starttime="20220613 19:04:54.120" endtime="20220613 19:04:54.121"/>
+</kw>
+<tag>GET</tag>
+<tag>Regression</tag>
+<status status="PASS" starttime="20220613 19:04:53.415" endtime="20220613 19:04:54.121"/>
+</test>
+<status status="PASS" starttime="20220613 19:04:53.406" endtime="20220613 19:04:54.123"/>
+</suite>
+<suite id="s1-s3" name="TC 03 GET SearchRequest" source="C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Tests\TC_03_GET_SearchRequest.robot">
+<test id="s1-s3-t1" name="TC_03_GET_SearchRequest" line="15">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${params}</var>
+<arg>keyword=${keyword}</arg>
+<arg>type=${type}</arg>
+<arg>category=${category}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220613 19:04:54.135" level="INFO">${params} = {'keyword': 'Burg', 'type': 'Expense', 'category': 'Food'}</msg>
+<status status="PASS" starttime="20220613 19:04:54.134" endtime="20220613 19:04:54.135"/>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>Get_Transactions_List</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20220613 19:04:54.135" level="INFO">Creating Session using : alias=Get_Transactions_List, url=https://estateably-todo.herokuapp.com/, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20220613 19:04:54.135" endtime="20220613 19:04:54.136"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>Get_Transactions_List</arg>
+<arg>${relative_transactions_url}</arg>
+<arg>params=${params}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20220613 19:04:54.835" level="INFO">GET Request : url=https://estateably-todo.herokuapp.com/transactions/search?keyword=Burg&amp;type=Expense&amp;category=Food 
+ path_url=/transactions/search?keyword=Burg&amp;type=Expense&amp;category=Food 
+ headers={'User-Agent': 'python-requests/2.28.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20220613 19:04:54.835" level="INFO">GET Response : url=https://estateably-todo.herokuapp.com/transactions/search?keyword=Burg&amp;type=Expense&amp;category=Food 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '157', 'Etag': 'W/"9d-lXjIUi+FTXk5yPxA2N7ThOa6dM8"', 'Date': 'Mon, 13 Jun 2022 22:04:56 GMT', 'Via': '1.1 vegur'} 
+ body=[{"id":"644bbdc4-1f1f-4418-b676-047f566f7290","name":"Burger Queen Order","category":"Food","type":"Expense","value":25.9,"date":"2022-06-11T12:46:02.937Z"}] 
+ </msg>
+<msg timestamp="20220613 19:04:54.835" level="INFO">c:\users\reginaldo\pycharmprojects\qachallengeestateably\venv\lib\site-packages\urllib3\connectionpool.py:1050: InsecureRequestWarning: Unverified HTTPS request is being made to host 'estateably-todo.herokuapp.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20220613 19:04:54.835" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220613 19:04:54.136" endtime="20220613 19:04:54.835"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${status_code}</var>
+<arg>${response.status_code}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220613 19:04:54.837" level="INFO">${status_code} = 200</msg>
+<status status="PASS" starttime="20220613 19:04:54.836" endtime="20220613 19:04:54.837"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${status_code}</arg>
+<arg>200</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220613 19:04:54.838" endtime="20220613 19:04:54.838"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${length}</var>
+<arg>${response.json()}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20220613 19:04:54.839" level="INFO">Length is 1</msg>
+<msg timestamp="20220613 19:04:54.840" level="INFO">${length} = 1</msg>
+<status status="PASS" starttime="20220613 19:04:54.838" endtime="20220613 19:04:54.840"/>
+</kw>
+<kw name="Should Not Be Equal" library="BuiltIn">
+<arg>${length}</arg>
+<arg>0</arg>
+<doc>Fails if the given objects are equal.</doc>
+<msg timestamp="20220613 19:04:54.840" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20220613 19:04:54.840" endtime="20220613 19:04:54.841"/>
+</kw>
+<tag>Regression</tag>
+<tag>SEARCH</tag>
+<status status="PASS" starttime="20220613 19:04:54.133" endtime="20220613 19:04:54.841"/>
+</test>
+<status status="PASS" starttime="20220613 19:04:54.124" endtime="20220613 19:04:54.842"/>
+</suite>
+<suite id="s1-s4" name="TC 04 DELETE Request" source="C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Tests\TC_04_DELETE_Request.robot">
+<test id="s1-s4-t1" name="TC_04_DELETE_Request" line="18">
+<kw name="Get File" library="OperatingSystem">
+<var>${file}</var>
+<arg>${FILE_DIR}</arg>
+<doc>Returns the contents of a specified file.</doc>
+<msg timestamp="20220613 19:04:54.861" level="INFO" html="true">Getting file '&lt;a href="file://C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\ids.txt"&gt;C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\ids.txt&lt;/a&gt;'.</msg>
+<msg timestamp="20220613 19:04:54.862" level="INFO">${file} = 0ebf5899-6bd4-451a-bf8a-67ed233da280
+73e8c389-bf77-4cfb-976f-e042b51c138a
+644bbdc4-1f1f-4418-b676-047f566f7290
+47c58fba-dfed-4e20-a181-3bba1fb297f5
+8896c6be-e2f1-43da-8cfd-5f2767090f35
+1cd47e13-00b8-4...</msg>
+<status status="PASS" starttime="20220613 19:04:54.861" endtime="20220613 19:04:54.862"/>
+</kw>
+<kw name="Split To Lines" library="String">
+<var>@{line}</var>
+<arg>${file}</arg>
+<doc>Splits the given string to lines.</doc>
+<msg timestamp="20220613 19:04:54.863" level="INFO">10 lines returned</msg>
+<msg timestamp="20220613 19:04:54.863" level="INFO">@{line} = [ 0ebf5899-6bd4-451a-bf8a-67ed233da280 | 73e8c389-bf77-4cfb-976f-e042b51c138a | 644bbdc4-1f1f-4418-b676-047f566f7290 | 47c58fba-dfed-4e20-a181-3bba1fb297f5 | 8896c6be-e2f1-43da-8cfd-5f2767090f35 | 1cd...</msg>
+<status status="PASS" starttime="20220613 19:04:54.863" endtime="20220613 19:04:54.863"/>
+</kw>
+<kw name="Catenate" library="BuiltIn">
+<var>${aux}</var>
+<arg>SEPARATOR=</arg>
+<arg>${relative_transactions_url}</arg>
+<arg>${line}[0]</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<msg timestamp="20220613 19:04:54.864" level="INFO">${aux} = transactions/0ebf5899-6bd4-451a-bf8a-67ed233da280</msg>
+<status status="PASS" starttime="20220613 19:04:54.864" endtime="20220613 19:04:54.864"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${aux}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220613 19:04:54.865" endtime="20220613 19:04:54.865"/>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>Delete_Transaction</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20220613 19:04:54.866" level="INFO">Creating Session using : alias=Delete_Transaction, url=https://estateably-todo.herokuapp.com/, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20220613 19:04:54.865" endtime="20220613 19:04:54.866"/>
+</kw>
+<kw name="DELETE On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>Delete_Transaction</arg>
+<arg>${aux}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20220613 19:04:55.561" level="INFO">DELETE Request : url=https://estateably-todo.herokuapp.com/transactions/0ebf5899-6bd4-451a-bf8a-67ed233da280 
+ path_url=/transactions/0ebf5899-6bd4-451a-bf8a-67ed233da280 
+ headers={'User-Agent': 'python-requests/2.28.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20220613 19:04:55.561" level="INFO">DELETE Response : url=https://estateably-todo.herokuapp.com/transactions/0ebf5899-6bd4-451a-bf8a-67ed233da280 
+ status=204, reason=No Content 
+ headers={'Server': 'Cowboy', 'Content-Length': '0', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Date': 'Mon, 13 Jun 2022 22:04:56 GMT', 'Via': '1.1 vegur'} 
+ body=None 
+ </msg>
+<msg timestamp="20220613 19:04:55.561" level="INFO">c:\users\reginaldo\pycharmprojects\qachallengeestateably\venv\lib\site-packages\urllib3\connectionpool.py:1050: InsecureRequestWarning: Unverified HTTPS request is being made to host 'estateably-todo.herokuapp.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20220613 19:04:55.562" level="INFO">${response} = &lt;Response [204]&gt;</msg>
+<status status="PASS" starttime="20220613 19:04:54.867" endtime="20220613 19:04:55.562"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${status_code}</var>
+<arg>${response.status_code}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220613 19:04:55.564" level="INFO">${status_code} = 204</msg>
+<status status="PASS" starttime="20220613 19:04:55.562" endtime="20220613 19:04:55.564"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${status_code}</arg>
+<arg>204</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220613 19:04:55.564" endtime="20220613 19:04:55.565"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${length}</var>
+<arg>${response.content}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20220613 19:04:55.566" level="INFO">Length is 0</msg>
+<msg timestamp="20220613 19:04:55.566" level="INFO">${length} = 0</msg>
+<status status="PASS" starttime="20220613 19:04:55.565" endtime="20220613 19:04:55.566"/>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${length}</arg>
+<arg>0</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<msg timestamp="20220613 19:04:55.568" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20220613 19:04:55.567" endtime="20220613 19:04:55.568"/>
+</kw>
+<tag>DELETE</tag>
+<tag>Regression</tag>
+<status status="PASS" starttime="20220613 19:04:54.860" endtime="20220613 19:04:55.568"/>
+</test>
+<status status="PASS" starttime="20220613 19:04:54.844" endtime="20220613 19:04:55.570"/>
+</suite>
+<suite id="s1-s5" name="TC 05 DELETE Request invalid" source="C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Tests\TC_05_DELETE_Request_invalid.robot">
+<test id="s1-s5-t1" name="TC_05_DELETE_Request" line="15">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>Delete_Transaction</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20220613 19:04:55.581" level="INFO">Creating Session using : alias=Delete_Transaction, url=https://estateably-todo.herokuapp.com/, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20220613 19:04:55.581" endtime="20220613 19:04:55.582"/>
+</kw>
+<kw name="DELETE On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>Delete_Transaction</arg>
+<arg>${relative_transactions_url}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20220613 19:04:56.318" level="INFO">DELETE Request : url=https://estateably-todo.herokuapp.com/transactions/11111111-1111-1111-1111-111111111111 
+ path_url=/transactions/11111111-1111-1111-1111-111111111111 
+ headers={'User-Agent': 'python-requests/2.28.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20220613 19:04:56.319" level="INFO">DELETE Response : url=https://estateably-todo.herokuapp.com/transactions/11111111-1111-1111-1111-111111111111 
+ status=404, reason=Not Found 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '52', 'Etag': 'W/"34-oExbVCDVJBUILJO3C8WJTlzbBxU"', 'Date': 'Mon, 13 Jun 2022 22:04:57 GMT', 'Via': '1.1 vegur'} 
+ body={"statusCode":404,"message":"Transaction not found"} 
+ </msg>
+<msg timestamp="20220613 19:04:56.319" level="INFO">c:\users\reginaldo\pycharmprojects\qachallengeestateably\venv\lib\site-packages\urllib3\connectionpool.py:1050: InsecureRequestWarning: Unverified HTTPS request is being made to host 'estateably-todo.herokuapp.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20220613 19:04:56.320" level="FAIL">HTTPError: 404 Client Error: Not Found for url: https://estateably-todo.herokuapp.com/transactions/11111111-1111-1111-1111-111111111111</msg>
+<status status="FAIL" starttime="20220613 19:04:55.582" endtime="20220613 19:04:56.323"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${status_code}</var>
+<arg>${response.status_code}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20220613 19:04:56.324" endtime="20220613 19:04:56.324"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${status_code}</arg>
+<arg>404</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" starttime="20220613 19:04:56.324" endtime="20220613 19:04:56.324"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${body}</var>
+<arg>${response.content}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20220613 19:04:56.325" endtime="20220613 19:04:56.325"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${body}</arg>
+<arg>Transaction not found</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="NOT RUN" starttime="20220613 19:04:56.326" endtime="20220613 19:04:56.326"/>
+</kw>
+<tag>DELETE</tag>
+<tag>Regression</tag>
+<status status="FAIL" starttime="20220613 19:04:55.580" endtime="20220613 19:04:56.327">HTTPError: 404 Client Error: Not Found for url: https://estateably-todo.herokuapp.com/transactions/11111111-1111-1111-1111-111111111111</status>
+</test>
+<status status="FAIL" starttime="20220613 19:04:55.571" endtime="20220613 19:04:56.328"/>
+</suite>
+<status status="FAIL" starttime="20220613 19:04:50.394" endtime="20220613 19:04:56.330"/>
+</suite>
+<statistics>
+<total>
+<stat pass="4" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="1" skip="0">DELETE</stat>
+<stat pass="1" fail="0" skip="0">GET</stat>
+<stat pass="1" fail="0" skip="0">POST</stat>
+<stat pass="4" fail="1" skip="0">Regression</stat>
+<stat pass="1" fail="0" skip="0">SEARCH</stat>
+</tag>
+<suite>
+<stat pass="4" fail="1" skip="0" id="s1" name="Tests">Tests</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1" name="TC 01 POST Request">Tests.TC 01 POST Request</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s2" name="TC 02 GET Request">Tests.TC 02 GET Request</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s3" name="TC 03 GET SearchRequest">Tests.TC 03 GET SearchRequest</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s4" name="TC 04 DELETE Request">Tests.TC 04 DELETE Request</stat>
+<stat pass="0" fail="1" skip="0" id="s1-s5" name="TC 05 DELETE Request invalid">Tests.TC 05 DELETE Request invalid</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20220613 19:04:50.617" level="ERROR">Error in file 'C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\GlobalVariables.robot' on line 11: Creating keyword 'set global variable' failed: Keyword with same name defined multiple times.</msg>
+<msg timestamp="20220613 19:04:50.617" level="ERROR">Error in file 'C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\GlobalVariables.robot' on line 12: Creating keyword 'set global variable' failed: Keyword with same name defined multiple times.</msg>
+<msg timestamp="20220613 19:04:50.618" level="ERROR">Error in file 'C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\GlobalVariables.robot' on line 13: Creating keyword 'set global variable' failed: Keyword with same name defined multiple times.</msg>
+<msg timestamp="20220613 19:04:53.411" level="ERROR">Error in file 'C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\GlobalVariables.robot' on line 11: Creating keyword 'set global variable' failed: Keyword with same name defined multiple times.</msg>
+<msg timestamp="20220613 19:04:53.412" level="ERROR">Error in file 'C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\GlobalVariables.robot' on line 12: Creating keyword 'set global variable' failed: Keyword with same name defined multiple times.</msg>
+<msg timestamp="20220613 19:04:53.413" level="ERROR">Error in file 'C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\GlobalVariables.robot' on line 13: Creating keyword 'set global variable' failed: Keyword with same name defined multiple times.</msg>
+<msg timestamp="20220613 19:04:54.130" level="ERROR">Error in file 'C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\GlobalVariables.robot' on line 11: Creating keyword 'set global variable' failed: Keyword with same name defined multiple times.</msg>
+<msg timestamp="20220613 19:04:54.130" level="ERROR">Error in file 'C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\GlobalVariables.robot' on line 12: Creating keyword 'set global variable' failed: Keyword with same name defined multiple times.</msg>
+<msg timestamp="20220613 19:04:54.131" level="ERROR">Error in file 'C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\GlobalVariables.robot' on line 13: Creating keyword 'set global variable' failed: Keyword with same name defined multiple times.</msg>
+<msg timestamp="20220613 19:04:54.857" level="ERROR">Error in file 'C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\GlobalVariables.robot' on line 11: Creating keyword 'set global variable' failed: Keyword with same name defined multiple times.</msg>
+<msg timestamp="20220613 19:04:54.858" level="ERROR">Error in file 'C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\GlobalVariables.robot' on line 12: Creating keyword 'set global variable' failed: Keyword with same name defined multiple times.</msg>
+<msg timestamp="20220613 19:04:54.858" level="ERROR">Error in file 'C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\GlobalVariables.robot' on line 13: Creating keyword 'set global variable' failed: Keyword with same name defined multiple times.</msg>
+<msg timestamp="20220613 19:04:55.577" level="ERROR">Error in file 'C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\GlobalVariables.robot' on line 11: Creating keyword 'set global variable' failed: Keyword with same name defined multiple times.</msg>
+<msg timestamp="20220613 19:04:55.578" level="ERROR">Error in file 'C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\GlobalVariables.robot' on line 12: Creating keyword 'set global variable' failed: Keyword with same name defined multiple times.</msg>
+<msg timestamp="20220613 19:04:55.578" level="ERROR">Error in file 'C:\Users\Reginaldo\PycharmProjects\QAchallengeEstateably\Resources\GlobalVariables.robot' on line 13: Creating keyword 'set global variable' failed: Keyword with same name defined multiple times.</msg>
+</errors>
+</robot>
