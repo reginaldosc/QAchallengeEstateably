@@ -1,3 +1,6 @@
+Run Test Suite
+TC_02_GET_Request
+
 *** Settings ***
 Library  RequestsLibrary
 Library  JSONLibrary
@@ -11,7 +14,7 @@ ${relative_transactions_url}    transactions
 
 
 *** Test Cases ***
-TC_02_GET_Request
+TC_02_01_GET_Valid_Request
     [Tags]    Regression    GET
 
     # GET

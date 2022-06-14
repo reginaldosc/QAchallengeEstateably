@@ -1,3 +1,6 @@
+Run Test Suite
+TC_03_GET_Search_Request
+
 *** Settings ***
 Library  RequestsLibrary
 Library  JSONLibrary
@@ -12,7 +15,7 @@ ${category}                             Food
 ${type}                                 Expense
 
 *** Test Cases ***
-TC_03_GET_SearchRequest
+TC_03_01_Valid_GET_Search_Request
     [Tags]    Regression    SEARCH
 
     # creating params values
