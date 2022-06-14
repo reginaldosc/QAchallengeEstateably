@@ -1,3 +1,6 @@
+Run Test Suite
+TC_01_POST_Request
+
 *** Settings ***
 Library  RequestsLibrary
 Library  JSONLibrary
@@ -17,7 +20,7 @@ ${i}
 ${data}
 
 *** Keywords ***
-POST create
+Valid POST create
     FOR  ${v1}  IN  @{CATEGORIES}
         FOR    ${v2}   IN      @{TYPES}
             # Creating Post Data
@@ -56,15 +59,61 @@ Save in a File
         APPEND TO FILE     ${FILE_DIR}    ${data}\n
     END
 
+
+Invalid POST create
+    [Arguments]  ${args}
+
+    IF     '${args}' == 'name'
+        ${name}=    set variable  ${EMPTY}
+        ${v1}=      set variable  ${CATEGORIES}[0]
+        ${v2}=      set variable  ${TYPES}[0]
+
+    ELSE IF     '${args}' == 'category'
+        ${name}=    set variable  Burguer
+        ${v1}=      set variable  ${EMPTY}
+        ${v2}=      set variable  ${TYPES}[0]
+
+    ELSE IF     '${args}' == 'type'
+        ${name}=    set variable  Burguer
+        ${v1}=      set variable  ${CATEGORIES}[0]
+        ${v2}=      set variable  ${EMPTY}
+
+    ELSE IF     '${args}' == 'value'
+        ${name}=    set variable  Burguer
+        ${v1}=      set variable  ${CATEGORIES}[0]
+        ${v2}=      set variable  ${TYPES}[0]
+        ${value}=   set variable  ${EMPTY}
+
+    ELSE IF     '${args}' == 'date'
+        ${name}=    set variable  Burguer
+        ${v1}=      set variable  ${CATEGORIES}[0]
+        ${v2}=      set variable  ${TYPES}[0]
+        ${value}=   set variable  12.32
+        ${date}=    set variable  ${EMPTY}
+
+    END
+
+    ${body}=           create dictionary    name=${name}  category=${v1}  type=${v2}  value=${value}  date=${date}
+
+    # Post
+    ${response}=       post request      Add_Data  ${relative_transactions_url}  json=${body}
+
+    # Validate Status Code
+    ${status_code}=    convert to string    ${response.json()}
+    [return]  ${status_code}
+
+
+
 *** Test Cases ***
-TC_01_POST_Request
+
+TC_01_01_Valid_POST_Request
     [Tags]    Regression    POST
 
     # Create the session
     create session     Add_Data             ${BASE_URL}
 
     # Call POST creation
-    POST create
+    Valid POST create
 
     # Print the IDS list components
     Print IDS
@@ -72,3 +121,65 @@ TC_01_POST_Request
     # Save IDS in a file
     Save in a File
 
+
+TC_01_02_Invalid_POST_Request
+    [Tags]  Regression  POST
+
+    # Create the session
+    create session     Add_Data             ${BASE_URL}
+
+    # Call POST without name
+    ${ret}=     Invalid POST create     name
+
+    should contain      ${ret}          400
+    should contain      ${ret}          Name is required
+
+
+TC_01_03_Invalid_POST_Request
+    [Tags]  Regression  POST
+
+    # Create the session
+    create session     Add_Data             ${BASE_URL}
+
+    # Call POST without name
+    ${ret}=     Invalid POST create     category
+
+    should contain      ${ret}          400
+    should contain      ${ret}          Category is required
+
+
+TC_01_04_Invalid_POST_Request
+    [Tags]  Regression  POST
+
+    # Create the session
+    create session     Add_Data             ${BASE_URL}
+
+    # Call POST without name
+    ${ret}=     Invalid POST create     type
+
+    should contain      ${ret}          400
+    should contain      ${ret}          Type is required
+
+TC_01_05_Invalid_POST_Request
+    [Tags]  Regression  POST
+
+    # Create the session
+    create session     Add_Data             ${BASE_URL}
+
+    # Call POST without name
+    ${ret}=     Invalid POST create     value
+
+    should contain      ${ret}          400
+    should contain      ${ret}          Number is required
+
+TC_01_05_Invalid_POST_Request
+    [Tags]  Regression  POST
+
+    # Create the session
+    create session     Add_Data             ${BASE_URL}
+
+    # Call POST without name
+    ${ret}=     Invalid POST create     date
+
+    should contain      ${ret}          400
+    should contain      ${ret}          Date is required

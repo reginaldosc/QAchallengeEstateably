@@ -17,12 +17,11 @@ TC_05_DELETE_Request
 
     # Delete Command
     create session   Delete_Transaction    ${BASE_URL}
-    ${response}=     DELETE On Session     Delete_Transaction           ${relative_transactions_url}
+    ${response}=     delete request     Delete_Transaction           ${relative_transactions_url}
 
     # Validate the Status Code
-    ${status_code}=  convert to string     ${response.status_code}
-    should be equal  ${status_code}        404
+    ${str_response}=  convert to string     ${response.json()}
+    should contain    ${str_response}       404
 
     # Validate the Response Body
-    ${body}         convert to string      ${response.content}
-    should contain  ${body}                Transaction not found
+    should contain  ${str_response}         Transaction not found
