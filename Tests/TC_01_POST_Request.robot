@@ -91,6 +91,13 @@ Invalid POST create
         ${value}=   set variable  12.32
         ${date}=    set variable  ${EMPTY}
 
+    ELSE IF     '${args}' == 'wrong_date'
+        ${name}=    set variable  Burguer
+        ${v1}=      set variable  ${CATEGORIES}[0]
+        ${v2}=      set variable  ${TYPES}[0]
+        ${value}=   set variable  12.32
+        ${date}=    set variable  1234
+
     END
 
     ${body}=           create dictionary    name=${name}  category=${v1}  type=${v2}  value=${value}  date=${date}
@@ -171,7 +178,7 @@ TC_01_05_Invalid_POST_Request
     should contain      ${ret}          400
     should contain      ${ret}          Number is required
 
-TC_01_05_Invalid_POST_Request
+TC_01_06_Invalid_POST_Request
     [Tags]  Regression  POST
 
     # Create the session
@@ -182,3 +189,14 @@ TC_01_05_Invalid_POST_Request
 
     should contain      ${ret}          400
     should contain      ${ret}          Date is required
+
+TC_01_07_Invalid_POST_Request
+    [Tags]  Regression  POST
+
+    # Create the session
+    create session     Add_Data             ${BASE_URL}
+
+    # Call POST without name
+    ${ret}=     Invalid POST create     wrong_date
+
+    should contain      ${ret}          400

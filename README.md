@@ -23,7 +23,6 @@
 * TC-02: `..\QAchallengeEstateably>robot -d Reports Tests/TC_02_GET_Request.robot`
 * TC-03: `..\QAchallengeEstateably>robot -d Reports Tests/TC_03_GET_SearchRequest.robot`
 * TC-04: `..\QAchallengeEstateably>robot -d Reports Tests/TC_04_DELETE_Request.robot`
-* TC-05: `..\QAchallengeEstateably>robot -d Reports Tests/TC_05_DELETE_Request_invalid.robot`
 
 # **Report & Log**
 * Report: Go to the folder `..\QAchallengeEstateably\Reports\` and open the file `report.html`
