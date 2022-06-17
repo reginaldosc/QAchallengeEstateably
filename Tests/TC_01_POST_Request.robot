@@ -114,6 +114,7 @@ Invalid POST create
 *** Test Cases ***
 TC_01_01_Valid_POST_Request
     [Tags]    Regression    POST
+    [Documentation]
 
     # Create the session
     create session     Add_Data             ${BASE_URL}

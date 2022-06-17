@@ -59,3 +59,28 @@ TC_04_02_Invalid_DELETE_Request
 
     # Validate the Response Body
     should contain  ${str_response}         Transaction not found
+
+TC_04_03_ParalLel_DELETE_Request
+    [Tags]    Regression    DELETE2
+
+    # Delete Command
+    create session   Delete_ParalLel_1    ${BASE_URL}
+    create session   Delete_ParalLel_2    ${BASE_URL}
+
+    ${aux}=         catenate      SEPARATOR=    ${relative_transactions_url}       c52a2fda-1c40-43ff-9264-d36baa37cb16
+
+    ${response}=     delete request     Delete_ParalLel_1       ${aux}
+    ${response2}=     delete request     Delete_ParalLel_2      ${aux}
+
+    # Validate the Status Code
+    ${str_response}=  convert to string     ${response.json()}
+    should contain    ${str_response}       204
+
+    # Validate the Response Body
+
+
+    ${str_response2}=  convert to string     ${response2.json()}
+    should contain    ${str_response}       404
+
+    # Validate the Response Body
+    #should contain  ${str_response}         Transaction not found

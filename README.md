@@ -21,7 +21,7 @@
 
 * TC-01: `..\QAchallengeEstateably>robot -d Reports Tests/TC_01_POST_Request.robot`
 * TC-02: `..\QAchallengeEstateably>robot -d Reports Tests/TC_02_GET_Request.robot`
-* TC-03: `..\QAchallengeEstateably>robot -d Reports Tests/TC_03_GET_SearchRequest.robot`
+* TC-03: `..\QAchallengeEstateably>robot -d Reports Tests/TC_03_GET_Search_Request.robot`
 * TC-04: `..\QAchallengeEstateably>robot -d Reports Tests/TC_04_DELETE_Request.robot`
 
 # **Report & Log**
